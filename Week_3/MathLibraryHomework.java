@@ -69,17 +69,18 @@ public class MathLibraryHomework {
     public static double specialSeries(double x, int numTerms) {
         double result = 0;
         double term = x;
-        double num = 0;
+        double extra = 0;
+
         if (x >= -1 && x <= 1) {
             for (int i = 1; i < numTerms; i++) {
                 result += term;
-                num = (double) (2 * i - 1) / (2 * i);
-                term += num * x * x / (2 * i + 1);
+                extra = (2.0 * i - 1) * (2.0 * i - 1) / (2.0 * i);
+                term *= x * x * extra / (2.0 * i + 1);
             }
         } else {
             System.out.println("Error about value x");
         }
-        return result;
+        return result; 
     }
 
     // 5.3 FactorialInt (Handling Overflow)
