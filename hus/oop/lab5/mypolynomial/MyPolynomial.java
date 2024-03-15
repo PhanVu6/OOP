@@ -5,19 +5,20 @@ public class MyPolynomial {
     private double[] coeffs;
 
     public MyPolynomial(double... coeffs) {
-        /*
-         * public MyPolynomial(double[] coeffs) {}
-         * Tạo mảng mới: new MyPolynomial([1.1, 2.2])
-         * 
-         * public MyPolynomial(double... coeffs) {}
-         * Tạo mảng mới: new MyPolynomial(1.1, 2.2)
-         */
         this.coeffs = coeffs;
     }
 
     public int getDegree() {
+        int degree = coeffs.length - 1;
         // Bổ sung trường hợp bằng 0.
-        return coeffs.length - 1;
+        for (int i = coeffs.length - 1; i >= 0; i--) {
+            if (coeffs[i] != 0) {
+                break;
+            } else {
+                degree--;
+            }
+        }
+        return degree;
     }
 
     @Override
