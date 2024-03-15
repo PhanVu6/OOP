@@ -1,63 +1,96 @@
 package hus.oop.lab5.mypolynomial;
 
 public class MyPolynomial {
+
     private double[] coeffs;
 
     public MyPolynomial(double... coeffs) {
+        /*
+         * public MyPolynomial(double[] coeffs) {}
+         * Tạo mảng mới: new MyPolynomial([1.1, 2.2])
+         * 
+         * public MyPolynomial(double... coeffs) {}
+         * Tạo mảng mới: new MyPolynomial(1.1, 2.2)
+         */
         this.coeffs = coeffs;
     }
 
     public int getDegree() {
-        return coeffs.length;
-    }
-
-    public double evaluate(double x) {
-        double total = 0;
-        double term = 1;
-        for (int i = 0; i < coeffs.length; i++) {
-            total += coeffs[i] * term;
-            term *= x;
-        }
-        return total;
-    }
-
-    public MyPolynomial add(MyPolynomial right) {
-        int newLength = Math.max(this.getDegree(), right.getDegree());
-        double[] newCoeffs = new double[newLength];
-        MyPolynomial newPolynomial = new MyPolynomial(newCoeffs);
-        for (int i = 0; i < coeffs.length; i++) {
-            newPolynomial.coeffs[i] += this.coeffs[i] + right.coeffs[i];
-        }
-        return newPolynomial;
-    }
-
-    public MyPolynomial multiply(MyPolynomial right) {
-        int newLengthCoeffs = this.getDegree() + right.getDegree() - 1;
-        double[] newCoeffs = new double[newLengthCoeffs];
-        MyPolynomial newPolynomial = new MyPolynomial(newCoeffs);
-        int index = 0;
-        while (index < this.getDegree() + right.getDegree()) {
-            for (int fid = 0, lid = index; (fid <= index && lid >= 0); fid++, lid--) {
-                if (lid <= coeffs.length - 1 && fid <= right.coeffs.length - 1) {
-                    newPolynomial.coeffs[index] += coeffs[lid] * right.coeffs[fid];
-                }
-            }
-            index++;
-        }
-        return newPolynomial;
+        // Bổ sung trường hợp bằng 0.
+        return coeffs.length - 1;
     }
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        String strPolynomials = "";
+        // Thay đổi tên biến có ý nghĩa hơn
+        StringBuilder sb = new StringBuilder();
         for (int i = coeffs.length - 1; i >= 0; i--) {
-            if (i != 0) {
-                strPolynomials += String.format("%.1fx^%d + ", coeffs[i], i);
-            } else {
-                strPolynomials += String.format("%.1f", coeffs[i]);
+            if (coeffs[i] != 0) {
+                if (i == coeffs.length - 1) {
+                    sb.append(coeffs[i]);
+                } else if (i < coeffs.length - 1) {
+                    if (coeffs[i] > 0) {
+                        sb.append(" + ");
+                    } else {
+                        sb.append(" - ");
+                    }
+                    sb.append(Math.abs(coeffs[i]));
+                }
+
+                if (i > 0) {
+                    sb.append("x");
+                    if (i > 1) {
+                        sb.append("^").append(i);
+                    }
+                }
             }
         }
-        return strPolynomials;
+        return sb.toString();
+    }
+
+    public double evaluate(double x) {
+        // Xem xét hornor.
+        double result = 0.0;
+        double xPow = 1;
+        for (int i = 0; i < coeffs.length; i++) {
+            result += coeffs[i] * xPow;
+            xPow *= x;
+        }
+
+        return result;
+    }
+
+    public MyPolynomial add(MyPolynomial right) {
+        int newLen = Math.max(coeffs.length, right.coeffs.length);
+        double[] addPoly = new double[newLen];
+        for (int i = 0; i < newLen; i++) {
+            double coeff = 0.0;
+            double rightcoeff = 0.0;
+
+            if (i < coeffs.length) {
+                coeff = coeffs[i];
+            }
+
+            if (i < right.coeffs.length) {
+                rightcoeff = right.coeffs[i];
+            }
+
+            addPoly[i] = coeff + rightcoeff;
+        }
+
+        this.coeffs = addPoly;
+        return this;
+    }
+
+    public MyPolynomial multiply(MyPolynomial right) {
+        int newDegree = this.getDegree() + right.getDegree();
+        double[] resultCoeffs = new double[newDegree + 1];
+        for (int i = 0; i < this.coeffs.length; i++) {
+            for (int j = 0; j < right.coeffs.length; j++) {
+                resultCoeffs[i + j] += this.coeffs[i] * right.coeffs[j];
+            }
+        }
+        this.coeffs = resultCoeffs;
+        return this;
     }
 }
