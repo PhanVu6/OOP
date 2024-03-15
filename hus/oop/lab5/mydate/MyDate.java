@@ -87,6 +87,10 @@ public class MyDate {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
+        if (!(this.month <= 12 && this.month >= 1)) {
+            throw new IllegalStateException("Month out of range!");
+        }
+
         return String.format("%s %d %s %04d",
                 DAYS[getDayOfWeek(year, month, day)], day, MONTHS[month - 1], year);
     }
