@@ -92,13 +92,26 @@ public class MyDate {
     }
 
     public MyDate nextDay() {
-        if (isLeapYear(year) && month == 2 && day == 28) {
-            this.day = 29;
-        } else if (this.day >= DAYS_IN_MONTHS[month - 1]) {
-            this.day = 1;
-            nextMonth();
+        if (isLeapYear(year)) {
+            if (month == 2 && day == 28) {
+                this.day = 29;
+            } else if (this.day == DAYS_IN_MONTHS[month - 1] || (month == 2 && day == 29)) {
+                this.day = 1;
+                nextMonth();
+            } else if (this.day < DAYS_IN_MONTHS[month - 1] && this.day >= 1) {
+                ++this.day;
+            } else {
+                throw new IllegalStateException("Day out of range!");
+            }
         } else {
-            ++this.day;
+            if (this.day == DAYS_IN_MONTHS[month - 1]) {
+                this.day = 1;
+                nextMonth();
+            } else if (this.day < DAYS_IN_MONTHS[month - 1] && this.day >= 1) {
+                ++this.day;
+            } else {
+                throw new IllegalStateException("Day out of range!");
+            }
         }
         return this;
     }
@@ -123,20 +136,33 @@ public class MyDate {
         } else if (this.year < 9999) {
             ++this.year;
         } else {
-            System.out.println("Year out of range!");
+            throw new IllegalStateException("Year out of range!");
         }
         return this;
     }
 
     public MyDate previousDay() {
-        if (isLeapYear(year) && month == 3 && day == 1) {
-            this.day = 29;
-            previousMonth();
-        } else if (day == 1) {
-            previousMonth();
-            this.day = DAYS_IN_MONTHS[month - 1];
+        if (isLeapYear(year)) {
+            if (month == 3 && day == 1) {
+                this.day = 29;
+                previousMonth();
+            } else if (day == 1 && month != 3) {
+                previousMonth();
+                this.day = DAYS_IN_MONTHS[month - 1];
+            } else if (this.day <= DAYS_IN_MONTHS[month - 1] && this.day > 1) {
+                --this.day;
+            } else {
+                throw new IllegalStateException("Day out of range!");
+            }
         } else {
-            --this.day;
+            if (day == 1) {
+                previousMonth();
+                this.day = DAYS_IN_MONTHS[month - 1];
+            } else if (this.day <= DAYS_IN_MONTHS[month - 1] && this.day > 1) {
+                --this.day;
+            } else {
+                throw new IllegalStateException("Day out of range!");
+            }
         }
         return this;
     }
@@ -146,8 +172,8 @@ public class MyDate {
             this.month = 12;
             previousYear();
         } else if (this.day > DAYS_IN_MONTHS[month - 2]) {
-            --this.month;
             previousDay();
+            --this.month;
         } else {
             --this.month;
         }
@@ -161,7 +187,7 @@ public class MyDate {
         } else if (this.year > 1) {
             --this.year;
         } else {
-            System.out.println("Year out of range!");
+            throw new IllegalStateException("Year out of range!");
         }
         return this;
     }
