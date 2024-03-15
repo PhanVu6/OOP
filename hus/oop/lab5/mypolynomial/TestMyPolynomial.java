@@ -5,7 +5,8 @@ public class TestMyPolynomial {
         MyPolynomial myPolynomial1 = new MyPolynomial(1, 2, 3, -1, -2, 3);
         System.out.println(myPolynomial1.toString());
 
-        MyPolynomial myPolynomial2 = new MyPolynomial(-3, -4, -2, -1, 5, 4);
+        MyPolynomial myPolynomial2 = new MyPolynomial(-3, -4, -2, -1, 5);
+        System.out.println(myPolynomial2.toString());
 
         System.out.println("Degree is " + myPolynomial1.getDegree());
         System.out.println("Evaluate of polynomial 1 with x = 3 is " + myPolynomial1.evaluate(3));
