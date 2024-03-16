@@ -21,21 +21,23 @@ public class TestMyDate {
         MyDate date3 = new MyDate(2012, 2, 29);
         System.out.println(date3.previousYear()); // Monday 28 Feb 2011
 
-        // System.out.println("Test 4");
-        // MyDate date4 = new MyDate(2099, 11, 31); // Invalid year , month , or day !
-        // System.out.println(date4);
-        // System.out.println(date4.nextDay());
-        // System.out.println(date4.nextDay());
-        // System.out.println(date4.nextMonth());
-        // System.out.println(date4.nextYear());
-        // System.out.println();
+        System.out.println("Test 4");
+        MyDate date4 = new MyDate(2023, 10, 31); // Invalid year , month , or day !
+        System.out.println(date4); // Tuesday 31 Oct 2023
+        System.out.println(date4.nextDay()); // Wednesday 1 Nov 2023
+        System.out.println(date4.nextDay()); // Thursday 2 Nov 2023
+        System.out.println(date4.nextMonth()); // Saturday 2 Dec 2023
+        System.out.println(date4.nextYear()); // Monday 2 Dec 2024
+        System.out.println();
 
-        // System.out.println("Test 5");
-        // MyDate date5 = new MyDate(2011, 2, 30); // Invalid year , month , or day !
-        // System.out.println(date5);
-        // System.out.println(date5.previousDay());
-        // System.out.println(date5.previousDay());
-        // System.out.println(date5.previousMonth());
-        // System.out.println(date5.previousYear());
+        System.out.println("Test 5");
+        MyDate date5 = new MyDate(2012, 3, 30); // Invalid year , month , or day !
+        // date5.setDay(32); // Invalid day!
+        // date5.setMonth(13); // Invalid month!
+        // date5.setYear(0); // Invalid year!
+        // date5.setDate(0, 13, 1); // Invalid year, month, or day!
+        System.out.println(date5);
+        System.out.println(date5.previousMonth()); // Wednesday 29 Feb 2012 (Leap Year)
+        System.out.println(date5.previousYear()); // Monday 28 Feb 2011 (Out Leap Year)
     }
 }
