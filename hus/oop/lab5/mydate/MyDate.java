@@ -1,7 +1,6 @@
 package hus.oop.lab5.mydate;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import javax.imageio.IIOException;
 
 public class MyDate {
     private int year;
@@ -12,6 +11,7 @@ public class MyDate {
     public static final String[] DAYS = { "Sunday", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday" };
     public static final int[] DAYS_IN_MONTHS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    public static final int[] DAYS_IN_MONTHS_LEAP_YEAR = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
     public MyDate(int year, int month, int day) {
         this.year = year;
@@ -29,15 +29,13 @@ public class MyDate {
     public boolean isValidDate(int year, int month, int day) {
         boolean checkYear = (year >= 1 && year <= 9999);
         boolean checkMonth = (month >= 1 && month <= 12);
-        boolean checkDay = (DAYS_IN_MONTHS[month - 1] >= day && day >= 1);
-        boolean checkDayLeapYear = (DAYS_IN_MONTHS[1] + 1 >= day && month == 2 && day >= 1 && checkYear);
 
-        if (isLeapYear(year)) {
-            if (checkDayLeapYear) {
-                return true;
-            } else if (checkDay && checkMonth && checkYear) {
-                return true;
-            }
+        if (isLeapYear(year) && checkYear && checkMonth
+                && (DAYS_IN_MONTHS_LEAP_YEAR[month - 1] >= day && day >= 1)) {
+            return true;
+        } else if (!isLeapYear(year) && checkYear && checkMonth
+                && (DAYS_IN_MONTHS[month - 1] >= day && day >= 1)) {
+            return true;
         }
         return false;
     }
@@ -55,9 +53,13 @@ public class MyDate {
     }
 
     public void setDate(int year, int month, int day) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
+        if (isValidDate(year, month, day)) {
+            this.year = year;
+            this.month = month;
+            this.day = day;
+        } else {
+            throw new IllegalArgumentException("Invalid year, month, or day!");
+        }
     }
 
     public int getYear() {
@@ -65,7 +67,11 @@ public class MyDate {
     }
 
     public void setYear(int year) {
-        this.year = year;
+        if (year >= 1 && year <= 9999) {
+            this.year = year;
+        } else {
+            throw new IllegalArgumentException("Invalid year!");
+        }
     }
 
     public int getMonth() {
@@ -73,7 +79,11 @@ public class MyDate {
     }
 
     public void setMonth(int month) {
-        this.month = month;
+        if (month >= 1 && month <= 12) {
+            this.month = month;
+        } else {
+            throw new IllegalArgumentException("Invalid month!");
+        }
     }
 
     public int getDay() {
@@ -81,14 +91,20 @@ public class MyDate {
     }
 
     public void setDay(int day) {
-        this.day = day;
+        if (!isLeapYear(day) && day >= 1 && day <= DAYS_IN_MONTHS[month - 1]) {
+            this.day = day;
+        } else if (isLeapYear(day) && day >= 1 && day <= DAYS_IN_MONTHS_LEAP_YEAR[month - 1]) {
+            this.day = day;
+        } else {
+            throw new IllegalArgumentException("Invalid day!");
+        }
     }
 
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        if (!(this.month <= 12 && this.month >= 1)) {
-            throw new IllegalStateException("Month out of range!");
+        if (!(isValidDate(year, month, day))) {
+            throw new IllegalArgumentException("Invalid year, month, or day!");
         }
 
         return String.format("%s %d %s %04d",
@@ -97,22 +113,20 @@ public class MyDate {
 
     public MyDate nextDay() {
         if (isLeapYear(year)) {
-            if (month == 2 && day == 28) {
-                this.day = 29;
-            } else if (this.day == DAYS_IN_MONTHS[month - 1] || (month == 2 && day == 29)) {
+            if (this.day < DAYS_IN_MONTHS_LEAP_YEAR[month - 1]) {
+                ++this.day;
+            } else if (this.month < 12) {
                 this.day = 1;
                 nextMonth();
-            } else if (this.day < DAYS_IN_MONTHS[month - 1] && this.day >= 1) {
-                ++this.day;
             } else {
                 throw new IllegalStateException("Day out of range!");
             }
         } else {
-            if (this.day == DAYS_IN_MONTHS[month - 1]) {
+            if (this.day < DAYS_IN_MONTHS[month - 1]) {
+                ++this.day;
+            } else if (this.month <= 12) {
                 this.day = 1;
                 nextMonth();
-            } else if (this.day < DAYS_IN_MONTHS[month - 1] && this.day >= 1) {
-                ++this.day;
             } else {
                 throw new IllegalStateException("Day out of range!");
             }
@@ -121,13 +135,16 @@ public class MyDate {
     }
 
     public MyDate nextMonth() {
+        if (isLeapYear(year) && this.day > DAYS_IN_MONTHS_LEAP_YEAR[month]) {
+            day = DAYS_IN_MONTHS_LEAP_YEAR[month];
+        } else if (this.day > DAYS_IN_MONTHS[month]) {
+            day = DAYS_IN_MONTHS[month];
+        }
+
         if (this.month == 12) {
             this.month = 1;
             nextYear();
-        } else if (this.day > DAYS_IN_MONTHS[month]) {
-            ++this.month;
-            nextDay();
-        } else {
+        } else if (this.month < 12) {
             ++this.month;
         }
         return this;
@@ -147,23 +164,20 @@ public class MyDate {
 
     public MyDate previousDay() {
         if (isLeapYear(year)) {
-            if (month == 3 && day == 1) {
-                this.day = 29;
-                previousMonth();
-            } else if (day == 1 && month != 3) {
-                previousMonth();
-                this.day = DAYS_IN_MONTHS[month - 1];
-            } else if (this.day <= DAYS_IN_MONTHS[month - 1] && this.day > 1) {
+            if (this.day > 1) {
                 --this.day;
+            } else if (this.day == 1) {
+                previousMonth();
+                this.day = DAYS_IN_MONTHS_LEAP_YEAR[month - 1];
             } else {
                 throw new IllegalStateException("Day out of range!");
             }
         } else {
-            if (day == 1) {
-                previousMonth();
-                this.day = DAYS_IN_MONTHS[month - 1];
-            } else if (this.day <= DAYS_IN_MONTHS[month - 1] && this.day > 1) {
+            if (this.day > 1) {
                 --this.day;
+            } else if (this.month == 1) {
+                this.day = DAYS_IN_MONTHS[month - 1];
+                previousMonth();
             } else {
                 throw new IllegalStateException("Day out of range!");
             }
@@ -175,8 +189,11 @@ public class MyDate {
         if (this.month == 1) {
             this.month = 12;
             previousYear();
+        } else if (isLeapYear(year) && this.day > DAYS_IN_MONTHS_LEAP_YEAR[month - 2]) {
+            this.day = DAYS_IN_MONTHS_LEAP_YEAR[month - 2];
+            --this.month;
         } else if (this.day > DAYS_IN_MONTHS[month - 2]) {
-            previousDay();
+            this.day = DAYS_IN_MONTHS[month - 2];
             --this.month;
         } else {
             --this.month;
