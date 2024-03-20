@@ -11,33 +11,28 @@ public class MyDate {
     public static final String[] DAYS = { "Sunday", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday" };
     public static final int[] DAYS_IN_MONTHS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-    public static final int[] DAYS_IN_MONTHS_LEAP_YEAR = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
     public MyDate(int year, int month, int day) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
+        setDate(year, month, day);
     }
 
     public boolean isLeapYear(int year) {
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-            return true;
-        }
-        return false;
+        return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
     }
 
     public boolean isValidDate(int year, int month, int day) {
         boolean checkYear = (year >= 1 && year <= 9999);
         boolean checkMonth = (month >= 1 && month <= 12);
 
-        if (isLeapYear(year) && checkYear && checkMonth
-                && (DAYS_IN_MONTHS_LEAP_YEAR[month - 1] >= day && day >= 1)) {
-            return true;
-        } else if (!isLeapYear(year) && checkYear && checkMonth
-                && (DAYS_IN_MONTHS[month - 1] >= day && day >= 1)) {
-            return true;
+        if (!checkYear || !checkMonth) {
+            return false;
         }
-        return false;
+
+        int lastDay = DAYS_IN_MONTHS[month - 1];
+        if (isLeapYear(year) && month == 2) {
+            lastDay = 29;
+        }
+        return 1 <= day && day <= lastDay;
     }
 
     public int getDayOfWeek(int year, int month, int day) {
@@ -91,9 +86,12 @@ public class MyDate {
     }
 
     public void setDay(int day) {
-        if (!isLeapYear(day) && day >= 1 && day <= DAYS_IN_MONTHS[month - 1]) {
-            this.day = day;
-        } else if (isLeapYear(day) && day >= 1 && day <= DAYS_IN_MONTHS_LEAP_YEAR[month - 1]) {
+        int lastDay = DAYS_IN_MONTHS[month - 1];
+        if (isLeapYear(day) && month == 2) {
+            lastDay = 29;
+        }
+
+        if (day >= 1 && day <= lastDay) {
             this.day = day;
         } else {
             throw new IllegalArgumentException("Invalid day!");
@@ -102,114 +100,94 @@ public class MyDate {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        if (!(isValidDate(year, month, day))) {
-            throw new IllegalArgumentException("Invalid year, month, or day!");
-        }
-
         return String.format("%s %d %s %04d",
                 DAYS[getDayOfWeek(year, month, day)], day, MONTHS[month - 1], year);
     }
 
     public MyDate nextDay() {
-        if (isLeapYear(year)) {
-            if (this.day < DAYS_IN_MONTHS_LEAP_YEAR[month - 1]) {
-                ++this.day;
-            } else if (this.month < 12) {
-                this.day = 1;
-                nextMonth();
-            } else {
-                throw new IllegalStateException("Day out of range!");
-            }
-        } else {
-            if (this.day < DAYS_IN_MONTHS[month - 1]) {
-                ++this.day;
-            } else if (this.month <= 12) {
-                this.day = 1;
-                nextMonth();
-            } else {
-                throw new IllegalStateException("Day out of range!");
-            }
+        ++day;
+        int lastDay = DAYS_IN_MONTHS[month - 1];
+        if (isLeapYear(year) && month == 2) {
+            lastDay = 29;
+        }
+
+        if (day > lastDay) {
+            day = 1;
+            nextMonth();
         }
         return this;
     }
 
     public MyDate nextMonth() {
-        if (isLeapYear(year) && this.day > DAYS_IN_MONTHS_LEAP_YEAR[month]) {
-            day = DAYS_IN_MONTHS_LEAP_YEAR[month];
-        } else if (this.day > DAYS_IN_MONTHS[month]) {
-            day = DAYS_IN_MONTHS[month];
+        ++month;
+        int lastDay = DAYS_IN_MONTHS[month - 1];
+        if (isLeapYear(year) && month == 2) {
+            lastDay = 29;
         }
 
-        if (this.month == 12) {
-            this.month = 1;
+        if (month > 12) {
+            month = 1;
             nextYear();
-        } else if (this.month < 12) {
-            ++this.month;
+        }
+
+        if (day > lastDay) {
+            day = lastDay;
         }
         return this;
     }
 
     public MyDate nextYear() {
-        if (this.year < 9999 && isLeapYear(year) && this.month == 2 && this.day == 29) {
-            ++this.year;
-            this.day = 28;
-        } else if (this.year < 9999) {
-            ++this.year;
-        } else {
+        ++year;
+        if (this.year > 9999) {
+            year = 9999;
             throw new IllegalStateException("Year out of range!");
+        }
+
+        if (!isLeapYear(year) && month == 2 && day == 29) {
+            day = 28;
         }
         return this;
     }
 
     public MyDate previousDay() {
-        if (isLeapYear(year)) {
-            if (this.day > 1) {
-                --this.day;
-            } else if (this.day == 1) {
-                previousMonth();
-                this.day = DAYS_IN_MONTHS_LEAP_YEAR[month - 1];
+        --day;
+        if (day < 1) {
+            previousMonth();
+            if (isLeapYear(year) && month == 2) {
+                day = 29;
             } else {
-                throw new IllegalStateException("Day out of range!");
-            }
-        } else {
-            if (this.day > 1) {
-                --this.day;
-            } else if (this.month == 1) {
-                this.day = DAYS_IN_MONTHS[month - 1];
-                previousMonth();
-            } else {
-                throw new IllegalStateException("Day out of range!");
+                day = DAYS_IN_MONTHS[month - 1];
             }
         }
         return this;
     }
 
     public MyDate previousMonth() {
-        if (this.month == 1) {
-            this.month = 12;
+        --month;
+        if (month < 1) {
             previousYear();
-        } else if (isLeapYear(year) && this.day > DAYS_IN_MONTHS_LEAP_YEAR[month - 2]) {
-            this.day = DAYS_IN_MONTHS_LEAP_YEAR[month - 2];
-            --this.month;
-        } else if (this.day > DAYS_IN_MONTHS[month - 2]) {
-            this.day = DAYS_IN_MONTHS[month - 2];
-            --this.month;
-        } else {
-            --this.month;
+            month = 12;
+        }
+
+        if (isLeapYear(year) && month == 2) {
+            day = 29;
+        } else if (day > DAYS_IN_MONTHS[month - 1]) {
+            day = DAYS_IN_MONTHS[month - 1];
         }
         return this;
     }
 
     public MyDate previousYear() {
-        if (this.year > 1 && isLeapYear(year) && month == 2 && day == 29) {
-            --this.year;
-            this.day = 28;
-        } else if (this.year > 1) {
-            --this.year;
-        } else {
+        --year;
+        if (year < 1) {
+            year = 1;
             throw new IllegalStateException("Year out of range!");
         }
+
+        if (!isLeapYear(year) && month == 2 && day == 29) {
+            day = 28;
+        }
+
         return this;
     }
 }
