@@ -60,12 +60,13 @@ public class MyPolynomial {
     }
 
     public MyPolynomial add(MyPolynomial right) {
-        int newLen = Math.max(coeffs.length, right.coeffs.length);
-        double[] addPoly = new double[newLen];
-        for (int i = 0; i < newLen; i++) {
-            double coeff = 0.0;
-            double rightcoeff = 0.0;
-
+        int newLength = Math.max(coeffs.length, right.coeffs.length);
+        double[] addMyPolyArray = new double[newLength];
+        double coeff;
+        double rightcoeff;
+        for (int i = 0; i < newLength; i++) {
+            coeff = 0.0;
+            rightcoeff = 0.0;
             if (i < coeffs.length) {
                 coeff = coeffs[i];
             }
@@ -74,13 +75,13 @@ public class MyPolynomial {
                 rightcoeff = right.coeffs[i];
             }
 
-            addPoly[i] = coeff + rightcoeff;
+            addMyPolyArray[i] = coeff + rightcoeff;
         }
 
-        this.coeffs = addPoly;
+        this.coeffs = addMyPolyArray;
         return this;
     }
-
+    
     public MyPolynomial multiply(MyPolynomial right) {
         int newDegree = this.getDegree() + right.getDegree();
         double[] resultCoeffs = new double[newDegree + 1];
