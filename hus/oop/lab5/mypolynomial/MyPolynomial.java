@@ -50,12 +50,10 @@ public class MyPolynomial {
     }
 
     public double evaluate(double x) {
-        // Xem xét hornor.
         double result = 0.0;
-        double xPow = 1;
-        for (int i = 0; i < coeffs.length; i++) {
-            result += coeffs[i] * xPow;
-            xPow *= x;
+        double terms = x;
+        for (int i = coeffs.length - 1; i >= 0; i--) {
+            result = coeffs[i] + result * terms;
         }
 
         return result;
