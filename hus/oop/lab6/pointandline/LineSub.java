@@ -84,7 +84,6 @@ public class LineSub extends Point {
     } // Length of the line
 
     public double getGradient() {
-        return Math.atan2((getBeginY() - getEndY()) * (getBeginY() - getEndY()),
-                (getBeginX() - getEndX()) * (getBeginX() - getEndX()));
+        return Math.atan2((getBeginY() - getEndY()), (getBeginX() - getEndX()));
     }
 }
