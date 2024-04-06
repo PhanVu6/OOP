@@ -110,15 +110,15 @@ public class CountryArrayManager {
         System.arraycopy(this.countries, 0, newArray, 0, this.length);
 
         for (int i = 0; i < newArray.length - 1; i++) {
-            boolean swapped = false;
-            for (int j = 0; j < newArray.length - i - 1; j++) {
-                if (newArray[j].getPopulation() > newArray[j + 1].getPopulation()) {
-                    Country temp = newArray[j];
-                    newArray[j] = newArray[j + 1];
-                    newArray[j + 1] = temp;
-                    swapped = true;
-                }
+            int min_idx = i;
+            for (int j = i + 1; j < newArray.length; j++) {
+                if (newArray[j].getPopulation() < newArray[min_idx].getPopulation())
+                    min_idx = j;
             }
+
+            Country temp = newArray[min_idx];
+            newArray[min_idx] = newArray[i];
+            newArray[i] = temp;
         }
 
         return newArray;
@@ -135,15 +135,15 @@ public class CountryArrayManager {
         System.arraycopy(this.countries, 0, newArray, 0, this.length);
 
         for (int i = 0; i < newArray.length - 1; i++) {
-            boolean swapped = false;
-            for (int j = 0; j < newArray.length - i - 1; j++) {
-                if (newArray[j].getPopulation() < newArray[j + 1].getPopulation()) {
-                    Country temp = newArray[j];
-                    newArray[j] = newArray[j + 1];
-                    newArray[j + 1] = temp;
-                    swapped = true;
-                }
+            int min_idx = i;
+            for (int j = i + 1; j < newArray.length; j++) {
+                if (newArray[j].getPopulation() > newArray[min_idx].getPopulation())
+                    min_idx = j;
             }
+
+            Country temp = newArray[min_idx];
+            newArray[min_idx] = newArray[i];
+            newArray[i] = temp;
         }
 
         return newArray;
@@ -160,13 +160,11 @@ public class CountryArrayManager {
         System.arraycopy(this.countries, 0, newArray, 0, this.length);
 
         for (int i = 0; i < newArray.length - 1; i++) {
-            boolean swapped = false;
             for (int j = 0; j < newArray.length - i - 1; j++) {
                 if (newArray[j].getArea() > newArray[j + 1].getArea()) {
                     Country temp = newArray[j];
                     newArray[j] = newArray[j + 1];
                     newArray[j + 1] = temp;
-                    swapped = true;
                 }
             }
         }
@@ -185,13 +183,11 @@ public class CountryArrayManager {
         System.arraycopy(this.countries, 0, newArray, 0, this.length);
 
         for (int i = 0; i < newArray.length - 1; i++) {
-            boolean swapped = false;
             for (int j = 0; j < newArray.length - i - 1; j++) {
                 if (newArray[j].getArea() < newArray[j + 1].getArea()) {
                     Country temp = newArray[j];
                     newArray[j] = newArray[j + 1];
                     newArray[j + 1] = temp;
-                    swapped = true;
                 }
             }
         }
@@ -209,16 +205,14 @@ public class CountryArrayManager {
         Country[] newArray = new Country[this.length];
         System.arraycopy(this.countries, 0, newArray, 0, this.length);
 
-        for (int i = 0; i < newArray.length - 1; i++) {
-            boolean swapped = false;
-            for (int j = 0; j < newArray.length - i - 1; j++) {
-                if (newArray[j].getGdp() > newArray[j + 1].getGdp()) {
-                    Country temp = newArray[j];
-                    newArray[j] = newArray[j + 1];
-                    newArray[j + 1] = temp;
-                    swapped = true;
-                }
+        for (int i = 1; i < newArray.length; i++) {
+            Country key = newArray[i];
+            int j = i - 1;
+            while (j >= 0 && newArray[j].getGdp() > key.getGdp()) {
+                newArray[j + 1] = newArray[j];
+                j = j - 1;
             }
+            newArray[j + 1] = key;
         }
 
         return newArray;
@@ -234,16 +228,14 @@ public class CountryArrayManager {
         Country[] newArray = new Country[this.length];
         System.arraycopy(this.countries, 0, newArray, 0, this.length);
 
-        for (int i = 0; i < newArray.length - 1; i++) {
-            boolean swapped = false;
-            for (int j = 0; j < newArray.length - i - 1; j++) {
-                if (newArray[j].getGdp() < newArray[j + 1].getGdp()) {
-                    Country temp = newArray[j];
-                    newArray[j] = newArray[j + 1];
-                    newArray[j + 1] = temp;
-                    swapped = true;
-                }
+        for (int i = 1; i < newArray.length; i++) {
+            Country key = newArray[i];
+            int j = i - 1;
+            while (j >= 0 && newArray[j].getGdp() < key.getGdp()) {
+                newArray[j + 1] = newArray[j];
+                j = j - 1;
             }
+            newArray[j + 1] = key;
         }
 
         return newArray;
@@ -273,7 +265,7 @@ public class CountryArrayManager {
         }
         AsiaCountry[] result = new AsiaCountry[asiaCountry.size()];
         return asiaCountry.toArray(result);
-        
+
     }
 
     public EuropeCountry[] filterEuropeCountry() {
@@ -287,7 +279,7 @@ public class CountryArrayManager {
         }
         EuropeCountry[] result = new EuropeCountry[europeCountry.size()];
         return europeCountry.toArray(result);
-        
+
     }
 
     public NorthAmericaCountry[] filterNorthAmericaCountry() {
@@ -301,7 +293,7 @@ public class CountryArrayManager {
         }
         NorthAmericaCountry[] result = new NorthAmericaCountry[northAmericaCountry.size()];
         return northAmericaCountry.toArray(result);
-        
+
     }
 
     public OceaniaCountry[] filterOceaniaCountry() {
@@ -315,7 +307,7 @@ public class CountryArrayManager {
         }
         OceaniaCountry[] result = new OceaniaCountry[oceaniaCountry.size()];
         return oceaniaCountry.toArray(result);
-        
+
     }
 
     public SouthAmericaCountry[] filterSouthAmericaCountry() {
@@ -329,7 +321,7 @@ public class CountryArrayManager {
         }
         SouthAmericaCountry[] result = new SouthAmericaCountry[southAmericaCountry.size()];
         return southAmericaCountry.toArray(result);
-        
+
     }
 
     public Country[] filterMostPopulousCountries(int howMany) {
@@ -339,7 +331,7 @@ public class CountryArrayManager {
             mostPopulationCountries[i] = newArray[i];
         }
         return mostPopulationCountries;
-        
+
     }
 
     public Country[] filterLeastPopulousCountries(int howMany) {
@@ -349,7 +341,7 @@ public class CountryArrayManager {
             leastPopulationCountries[i] = newArray[i];
         }
         return leastPopulationCountries;
-        
+
     }
 
     public Country[] filterLargestAreaCountries(int howMany) {
@@ -359,7 +351,7 @@ public class CountryArrayManager {
             largestAreaCountries[i] = newArray[i];
         }
         return largestAreaCountries;
-        
+
     }
 
     public Country[] filterSmallestAreaCountries(int howMany) {
@@ -369,7 +361,7 @@ public class CountryArrayManager {
             largestAreaCountries[i] = newArray[i];
         }
         return largestAreaCountries;
-        
+
     }
 
     public Country[] filterHighestGdpCountries(int howMany) {
@@ -379,7 +371,7 @@ public class CountryArrayManager {
             highestGdpCountries[i] = newArray[i];
         }
         return highestGdpCountries;
-        
+
     }
 
     public Country[] filterLowestGdpCountries(int howMany) {
@@ -389,7 +381,7 @@ public class CountryArrayManager {
             highestGdpCountries[i] = newArray[i];
         }
         return highestGdpCountries;
-        
+
     }
 
     public static String codeOfCountriesToString(Country[] countries) {
