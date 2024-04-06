@@ -273,7 +273,7 @@ public class CountryArrayManager {
         }
         AsiaCountry[] result = new AsiaCountry[asiaCountry.size()];
         return asiaCountry.toArray(result);
-        /* TODO */
+        
     }
 
     public EuropeCountry[] filterEuropeCountry() {
@@ -287,7 +287,7 @@ public class CountryArrayManager {
         }
         EuropeCountry[] result = new EuropeCountry[europeCountry.size()];
         return europeCountry.toArray(result);
-        /* TODO */
+        
     }
 
     public NorthAmericaCountry[] filterNorthAmericaCountry() {
@@ -301,7 +301,7 @@ public class CountryArrayManager {
         }
         NorthAmericaCountry[] result = new NorthAmericaCountry[northAmericaCountry.size()];
         return northAmericaCountry.toArray(result);
-        /* TODO */
+        
     }
 
     public OceaniaCountry[] filterOceaniaCountry() {
@@ -315,7 +315,7 @@ public class CountryArrayManager {
         }
         OceaniaCountry[] result = new OceaniaCountry[oceaniaCountry.size()];
         return oceaniaCountry.toArray(result);
-        /* TODO */
+        
     }
 
     public SouthAmericaCountry[] filterSouthAmericaCountry() {
@@ -329,7 +329,7 @@ public class CountryArrayManager {
         }
         SouthAmericaCountry[] result = new SouthAmericaCountry[southAmericaCountry.size()];
         return southAmericaCountry.toArray(result);
-        /* TODO */
+        
     }
 
     public Country[] filterMostPopulousCountries(int howMany) {
@@ -339,7 +339,7 @@ public class CountryArrayManager {
             mostPopulationCountries[i] = newArray[i];
         }
         return mostPopulationCountries;
-        /* TODO */
+        
     }
 
     public Country[] filterLeastPopulousCountries(int howMany) {
@@ -349,7 +349,7 @@ public class CountryArrayManager {
             leastPopulationCountries[i] = newArray[i];
         }
         return leastPopulationCountries;
-        /* TODO */
+        
     }
 
     public Country[] filterLargestAreaCountries(int howMany) {
@@ -359,7 +359,7 @@ public class CountryArrayManager {
             largestAreaCountries[i] = newArray[i];
         }
         return largestAreaCountries;
-        /* TODO */
+        
     }
 
     public Country[] filterSmallestAreaCountries(int howMany) {
@@ -369,7 +369,7 @@ public class CountryArrayManager {
             largestAreaCountries[i] = newArray[i];
         }
         return largestAreaCountries;
-        /* TODO */
+        
     }
 
     public Country[] filterHighestGdpCountries(int howMany) {
@@ -379,7 +379,7 @@ public class CountryArrayManager {
             highestGdpCountries[i] = newArray[i];
         }
         return highestGdpCountries;
-        /* TODO */
+        
     }
 
     public Country[] filterLowestGdpCountries(int howMany) {
@@ -389,7 +389,7 @@ public class CountryArrayManager {
             highestGdpCountries[i] = newArray[i];
         }
         return highestGdpCountries;
-        /* TODO */
+        
     }
 
     public static String codeOfCountriesToString(Country[] countries) {
