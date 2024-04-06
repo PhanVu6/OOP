@@ -1,4 +1,4 @@
-// package hus.oop.countryarraymanager;
+package hus.oop.countryarraymanager;
 
 public abstract class Country {
     protected String code;
