@@ -57,13 +57,14 @@ public class Lists {
     }
 
     public static void reverseManual(List<Integer> list) {
-        int l = 0, r = list.size() - 1;
-        while (l <= r) {
-            int value = list.get(l);
-            list.set(l, list.get(r));
-            list.set(r, value);
-            l++;
-            r--;
+        int temp = 0;
+        int indexEnd = list.size() - 1;
+
+        for (int i = 0; i < indexEnd; i++) {
+            temp = list.get(i);
+            list.set(i, list.get(indexEnd));
+            list.set(indexEnd, temp);
+            indexEnd--;
         }
     }
 
