@@ -41,6 +41,7 @@ public class MyArrayList extends MyAbstractList {
         for (int i = index; i < size - 1; i++) {
             elements[i] = elements[i + 1];
         }
+        elements[size] = null;
         size--;
     }
 
