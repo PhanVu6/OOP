@@ -9,42 +9,38 @@ import java.util.TreeSet;
 
 public class Sets {
     public static Set<Integer> intersectionManual(Set<Integer> first, Set<Integer> second) {
-        Set<Integer> ans = new TreeSet<>();
-        Iterator<Integer> iterator = first.iterator();
-        while (iterator.hasNext()) {
-            Integer value = iterator.next();
-            if (second.contains(value)) {
-                ans.add(value);
+        Set<Integer> intersec = new TreeSet<>();
+        for (Integer element : second) {
+            if (first.contains(element)) {
+                intersec.add(element);
             }
         }
-        return ans;
+        return intersec;
     }
 
     public static Set<Integer> unionManual(Set<Integer> first, Set<Integer> second) {
-        Set<Integer> ans = new TreeSet<>();
-        Iterator<Integer> iterator1 = first.iterator();
-        while (iterator1.hasNext()) {
-            Integer value = iterator1.next();
-            ans.add(value);
+        Set<Integer> union = new TreeSet<>();
+        for (Integer element : first) {
+            union.add(element);
         }
-        Iterator<Integer> iterator2 = second.iterator();
-        while (iterator2.hasNext()) {
-            Integer value = iterator2.next();
-            ans.add(value);
+        for (Integer elementSecond : second) {
+            if (!union.contains(elementSecond)) {
+                union.add(elementSecond);
+            }
         }
-        return ans;
+        return union;
     }
 
     public static Set<Integer> intersection(Set<Integer> first, Set<Integer> second) {
-        Set<Integer> intersectionSet = new TreeSet<>(first);
-        intersectionSet.retainAll(second);
-        return intersectionSet;
+        Set<Integer> intersection = new TreeSet<>(first);
+        intersection.retainAll(second);
+        return intersection;
     }
 
     public static Set<Integer> union(Set<Integer> first, Set<Integer> second) {
-        Set<Integer> unionSet = new TreeSet<>(first);
-        unionSet.addAll(second);
-        return unionSet;
+        Set<Integer> union = new TreeSet<>(first);
+        union.addAll(second);
+        return union;
     }
 
     public static List<Integer> toList(Set<Integer> source) {
@@ -56,71 +52,47 @@ public class Sets {
     }
 
     public static List<Integer> removeDuplicatesManual(List<Integer> source) {
-        List<Integer> ans = new ArrayList<>();
-        Iterator<Integer> iterator = source.iterator();
-        while (iterator.hasNext()) {
-            Integer value = iterator.next();
-            if (!ans.contains(value)) {
-                ans.add(value);
+        List<Integer> list = new ArrayList<>();
+        for (Integer element : source) {
+            if (!list.contains(source)) {
+                list.add(element);
             }
         }
-        return ans;
+        return list;
     }
 
     public static String firstRecurringCharacter(String s) {
-        s = s.toLowerCase();
-        int[] arr = new int[28];
-        for (int i = 0; i < s.length(); i++) {
-            int code = (int) s.charAt(i) - (int) ('a');
-            arr[code]++;
-        }
-
-        for (int i = 0; i < s.length(); i++) {
-            if (arr[(int) s.charAt(i) - (int) ('a')] > 1) {
-                return String.valueOf(s.charAt(i));
-            }
-        }
-
-        return null;
+        String getFristStr = "";
+        getFristStr += s.charAt(0);
+        return getFristStr;
     }
 
     public static Set<Character> allRecurringChars(String s) {
-        Set<Character> opSet = new HashSet<>();
-        int[] cnt = new int[26];
-
+        Set<Character> getCharacters = new HashSet<>();
         for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (Character.isLetter(c)) {
-                int code = Character.toLowerCase(c) - 'a';
-                cnt[code]++;
+            for (int j = i + 1; j < s.length(); j++) {
+                if (s.charAt(i) == s.charAt(j) && !getCharacters.contains(s.charAt(i))) {
+                    getCharacters.add(s.charAt(i));
+                }
             }
         }
-
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (Character.isLetter(c) && cnt[Character.toLowerCase(c) - 'a'] > 1) {
-                opSet.add(c);
-            }
-        }
-
-        return opSet;
+        return getCharacters;
     }
 
     public static Integer[] toArray(Set<Integer> source) {
-        Integer[] ans = new Integer[source.size()];
-        return source.toArray(ans);
+        Integer[] array = new Integer[source.size()];
+        return source.toArray(array);
     }
 
     public static int getFirst(TreeSet<Integer> source) {
-        return source.first();
+        return source.getFirst();
     }
 
     public static int getLast(TreeSet<Integer> source) {
-        return source.last();
+        return source.getLast();
     }
 
     public static int getGreater(TreeSet<Integer> source, int value) {
         return source.ceiling(value);
     }
-
 }
