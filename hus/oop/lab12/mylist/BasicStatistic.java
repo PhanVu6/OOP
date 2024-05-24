@@ -16,10 +16,13 @@ public class BasicStatistic {
      * @return giá trị lớn nhất.
      */
     public double max() {
-        double max = (double) data.get(1);
-        for (int i = 2; i < data.size(); i++) {
-            if ((double) data.get(i) > max) {
-                max = (double) data.get(i);
+        double max = Double.MIN_VALUE;
+        MyIterator iterator = data.iterator();
+
+        while (iterator.hasNext()) {
+            double value = (Double) iterator.next();
+            if (max < value) {
+                max = value;
             }
         }
         return max;
@@ -31,10 +34,10 @@ public class BasicStatistic {
      * @return giá trị nhỏ nhất.
      */
     public double min() {
-        double min = (double) data.get(1);
-        for (int i = 2; i < data.size(); i++) {
-            if ((double) data.get(i) < min) {
-                min = (double) data.get(i);
+        double min = (Double) data.get(0);
+        for (int i = 1; i < data.size(); i++) {
+            if ((Double) data.get(i) < min) {
+                min = (Double) data.get(i);
             }
         }
         return min;
