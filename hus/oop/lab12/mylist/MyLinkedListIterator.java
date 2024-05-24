@@ -37,11 +37,8 @@ public class MyLinkedListIterator implements MyIterator {
      */
     @Override
     public Object next() {
-        if (hasNext()) {
-            MyLinkedListNode saveCurrentNode = currentNode;
-            currentNode = currentNode.getNext();
-            return saveCurrentNode.getPayload();
-        }
-        return null;
+        MyLinkedListNode saveCurrentNode = currentNode;
+        currentNode = currentNode.getNext();
+        return saveCurrentNode.getPayload();
     }
 }
