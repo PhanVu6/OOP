@@ -19,6 +19,15 @@ public class MyLinkedList extends MyAbstractList {
      */
     @Override
     public int size() {
+        // Giả sử không cho instance size.
+        // int count = 0;
+        // MyLinkedListNode currentNode = this.head;
+        // while (currentNode != null) {
+        // count++;
+        // currentNode = currentNode.getNext();
+        // }
+        // return count;
+
         return size;
     }
 
@@ -41,10 +50,13 @@ public class MyLinkedList extends MyAbstractList {
     @Override
     public void remove(int index) {
         if (index == 0) {
+            if (head == null) {
+                return;
+            }
             head = head.getNext();
         } else {
             MyLinkedListNode current = getNodeByIndex(index - 1);
-            MyLinkedListNode nextNode = getNodeByIndex(index + 1);
+            MyLinkedListNode nextNode = current.getNext().getNext();
             current.setNext(nextNode);
         }
         size--;
