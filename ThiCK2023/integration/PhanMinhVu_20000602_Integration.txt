@@ -1,0 +1,30 @@
+Test Array Polynominal
+x^3-3.0x^2 + 2.0x
+Gia tri cua poly tai x = 5: 60.0
+x^4-5.0x^3 + 10.0x^2
+Plus
+x^4-4.0x^3 + 7.0x^2 + 2.0x
+Minus
+x^3-3.0x^2 + 2.0x
+Multiply
+x^7-8.0x^6 + 27.0x^5-40.0x^4 + 20.0x^3
+
+Test List Polynominal
+x^3-3.0x^2 + 2.0x
+Gia tri cua poly tai x = 5: 60.0
+x^4-5.0x^3 + 6.0x^2
+Plus
+x^4-4.0x^3 + 26.0x^2 + 2.0x
+Minus
+x^3 + 20.0x^2 + 2.0x
+Multiply
+x^7 + 15.0x^6-92.0x^5 + 110.0x^4 + 12.0x^3
+
+Test intergation caculator
+x^2
+Intergation caculator by MidPointRule
+0.33230452674897115
+Intergation caculator by SimpsonRule
+0.3333333333333333
+Intergation caculator by TrapezoidRule
+0.33449074074074076
