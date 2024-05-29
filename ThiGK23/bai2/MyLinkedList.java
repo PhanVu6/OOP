@@ -6,7 +6,7 @@ public class MyLinkedList extends MyAbstractList {
 
     public MyLinkedList() {
         head = null;
-        size = 1;
+        size = 0;
     }
 
     private MyLinkedListNode getNodeByIndex(int index) {
@@ -20,55 +20,70 @@ public class MyLinkedList extends MyAbstractList {
     }
 
     @Override
-    public void append(Object obj) {
-        insert(obj, size);
+    public void append(Object payload) {
+        insert(payload, size);
     }
 
     @Override
-    public void insert(Object obj, int index) {
-        if (index == 1) {
-            head = new MyLinkedListNode(obj, head);
+    public void insert(Object payload, int index) {
+        if (index == 0) {
+            head = new MyLinkedListNode(payload, head);
         } else {
-            MyLinkedListNode current = getNodeByIndex(index - 2);
-            current.setNext(new MyLinkedListNode(obj, current.getNext()));
+            MyLinkedListNode currentNode = getNodeByIndex(index - 1);
+            MyLinkedListNode newNode = new MyLinkedListNode(payload, currentNode.getNext());
+            currentNode.setNext(newNode);
         }
         size++;
     }
 
     @Override
     public Object get(int index) {
-        return getNodeByIndex(index - 1);
+        return getNodeByIndex(index).getPayload();
     }
 
     @Override
     public void remove(int index) {
-        if (index == 1) {
+        if (index == 0) {
+            if (head == null) {
+                return;
+            }
             head = head.getNext();
         } else {
-            MyLinkedListNode current = getNodeByIndex(index - 2);
-            MyLinkedListNode nextNode = getNodeByIndex(index);
+            MyLinkedListNode current = getNodeByIndex(index - 1);
+            MyLinkedListNode nextNode = current.getNext().getNext();
             current.setNext(nextNode);
         }
         size--;
     }
 
     @Override
-    public void set(Object obj, int index) {
-        if (index == 1) {
-            head = new MyLinkedListNode(obj, head.getNext());
+    public void set(Object payload, int index) {
+        if (index == 0) {
+            head = new MyLinkedListNode(payload, head.getNext());
         } else {
-            MyLinkedListNode prevNode = getNodeByIndex(index - 2);
-            MyLinkedListNode lastNode = getNodeByIndex(index);
-            prevNode.setNext(new MyLinkedListNode(obj, prevNode.getNext()));
-            MyLinkedListNode current = getNodeByIndex(index - 1);
-            current.setNext(lastNode);
-
+            MyLinkedListNode previous = getNodeByIndex(index - 1);
+            MyLinkedListNode current = previous.getNext();
+            MyLinkedListNode newNode = new MyLinkedListNode(payload, current.getNext());
+            previous.setNext(newNode);
         }
+
+        // Bất đắc dĩ hẵng làm như sau:
+        // remove(index);
+        // insert(payload, index);
     }
 
     @Override
     public int size() {
-        return size - 1;
+        // Giả sử không cho instance size.
+        // int count = 0;
+        // MyLinkedListNode currentNode = this.head;
+        // while (currentNode != null) {
+        // count++;
+        // currentNode = currentNode.getNext();
+        // }
+        // return count;
+
+        return size;
     }
 
     @Override
