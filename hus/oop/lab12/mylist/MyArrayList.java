@@ -76,10 +76,10 @@ public class MyArrayList extends MyAbstractList {
         if (index >= size) {
             enlarge();
         }
-        for (int i = size - 1; i >= index; i++) {
+        for (int i = size; i > index; i--) {
             data[i] = data[i - 1];
         }
-        data[index - 1] = payload;
+        data[index] = payload;
         size++;
     }
 
