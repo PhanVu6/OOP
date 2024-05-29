@@ -22,6 +22,7 @@ public class TestMyList {
         MyArrayList myArrayList = new MyArrayList();
         for (int i = 0; i < 10; i++) {
             myArrayList.append(Math.random() * 10);
+            // myArrayList.append((double) i);
         }
         System.out.println(myArrayList);
         MyIterator myArrayListIterator = myArrayList.iterator();
@@ -46,15 +47,16 @@ public class TestMyList {
         System.out.println("Test LinkedList");
         MyLinkedList myLinkedList = new MyLinkedList();
         for (int i = 0; i < 10; i++) {
-            myLinkedList.append(Math.random() * 10);
-            // myLinkedList.append((double) i);
+            // myLinkedList.append(Math.random() * 10);
+            myLinkedList.append((double) i);
         }
-
         System.out.println(myLinkedList);
+
         MyIterator myLinkedListIterator = myLinkedList.iterator();
         while (myLinkedListIterator.hasNext()) {
             System.out.println(myLinkedListIterator.next());
         }
+
         BasicStatistic basicStatistic = new BasicStatistic(myLinkedList);
         System.out.println("max: " + basicStatistic.max());
         System.out.println("min: " + basicStatistic.min());
