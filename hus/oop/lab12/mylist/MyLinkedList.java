@@ -83,7 +83,7 @@ public class MyLinkedList extends MyAbstractList {
         if (index == 0) {
             head = new MyLinkedListNode(payload, head);
         } else {
-            MyLinkedListNode currentNode = getNodeByIndex(index);
+            MyLinkedListNode currentNode = getNodeByIndex(index - 1);
             MyLinkedListNode newNode = new MyLinkedListNode(payload, currentNode.getNext());
             currentNode.setNext(newNode);
         }
