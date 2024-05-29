@@ -1,7 +1,7 @@
 package bai2;
 
 public class MyArrayList extends MyAbstractList {
-    private final int DEFAULT_CAPACITY = 1;
+    private final int DEFAULT_CAPACITY = 2;
     private Object[] data;
     private int size;
 
@@ -17,29 +17,26 @@ public class MyArrayList extends MyAbstractList {
     }
 
     @Override
-    public void append(Object obj) {
+    public void append(Object payload) {
         enlarge();
-        data[size] = obj;
+        data[size] = payload;
         size++;
     }
 
     @Override
     public Object get(int index) {
-        if (index > size || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("Index out of range");
-        }
-        return data[index - 1];
+        return data[index];
     }
 
     @Override
-    public void insert(Object obj, int index) {
+    public void insert(Object payload, int index) {
         if (index >= size) {
             enlarge();
         }
-        for (int i = size - 1; i >= index - 1; i--) {
-            data[i + 1] = data[i];
+        for (int i = size; i > index; i--) {
+            data[i] = data[i - 1];
         }
-        data[index - 1] = obj;
+        data[index] = payload;
         size++;
     }
 
@@ -56,8 +53,8 @@ public class MyArrayList extends MyAbstractList {
     }
 
     @Override
-    public void set(Object obj, int index) {
-        data[index - 1] = obj;
+    public void set(Object payload, int index) {
+        data[index] = payload;
     }
 
     @Override
