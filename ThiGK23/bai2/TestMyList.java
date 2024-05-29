@@ -23,12 +23,12 @@ public class TestMyList {
         typeList.append(book3);
         System.out.println(typeList);
 
-        System.out.println("Get at position 2: " + typeList.get(2));
-        typeList.insert(book4, 3);
+        System.out.println("Get at position 2: " + typeList.get(1));
+        typeList.insert(book4, 2);
         System.out.println("Insert book4 at position 3: \n" + typeList);
-        typeList.remove(5);
+        typeList.remove(4);
         System.out.println("Remove book at position 5: \n" + typeList);
-        typeList.set(book3, 4);
+        typeList.set(book3, 3);
         System.out.println("Set book3 at position 4: \n" + typeList);
         System.out.println("Size: " + typeList.size());
 
@@ -39,8 +39,10 @@ public class TestMyList {
         }
         System.out.println("\nSort: ");
         BookManager bookManager = new BookManager(typeList);
-        System.out.println(bookManager.sortByPageNumber(true));
-        System.out.println(bookManager.sortTitle(true));
+        System.out.println("Sort by page");
+        System.out.println(bookManager.sortByPageNumber(false));
+        System.out.println("Sort by title");
+        System.out.println(bookManager.sortTitle(false));
     }
 
     public static void TestMyArrayList() {
