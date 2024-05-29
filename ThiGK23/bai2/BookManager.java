@@ -15,9 +15,9 @@ public class BookManager {
         if (ascending) {
             for (int i = 0; i < newArr.size() - 1; i++) {
                 for (int j = i + 1; j < newArr.size(); j++) {
-                    if (pagesComparator.compare((Book) newArr.get(i), (Book) newArr.get(j)) == 1) {
-                        temp = newArr.get(i);
-                        newArr.set(newArr.get(j), i);
+                    if (pagesComparator.compare((Book) newArr.get(i), (Book) newArr.get(j)) > 0) {
+                        temp = (Book) newArr.get(i);
+                        newArr.set((Book) newArr.get(j), i);
                         newArr.set(temp, j);
                     }
                 }
@@ -25,9 +25,9 @@ public class BookManager {
         } else {
             for (int i = 0; i < newArr.size() - 1; i++) {
                 for (int j = i + 1; j < newArr.size(); j++) {
-                    if (pagesComparator.compare((Book) newArr.get(i), (Book) newArr.get(j)) == -1) {
-                        temp = newArr.get(i);
-                        newArr.set(newArr.get(j), i);
+                    if (pagesComparator.compare((Book) newArr.get(i), (Book) newArr.get(j)) < 0) {
+                        temp = (Book) newArr.get(i);
+                        newArr.set((Book) newArr.get(j), i);
                         newArr.set(temp, j);
                     }
                 }
@@ -44,9 +44,9 @@ public class BookManager {
         if (ascending) {
             for (int i = 0; i < newArr.size() - 1; i++) {
                 for (int j = i + 1; j < newArr.size(); j++) {
-                    if (titleComparator.compare((Book) newArr.get(i), (Book) newArr.get(j)) == 1) {
+                    if (titleComparator.compare((Book) newArr.get(i), (Book) newArr.get(j)) > 0) {
                         temp = (Book) newArr.get(i);
-                        newArr.set(newArr.get(j), i);
+                        newArr.set((Book) newArr.get(j), i);
                         newArr.set(temp, j);
                     }
                 }
@@ -54,9 +54,9 @@ public class BookManager {
         } else {
             for (int i = 0; i < newArr.size() - 1; i++) {
                 for (int j = i + 1; j < newArr.size(); j++) {
-                    if (titleComparator.compare((Book) newArr.get(i), (Book) newArr.get(j)) == -1) {
+                    if (titleComparator.compare((Book) newArr.get(i), (Book) newArr.get(j)) < 0) {
                         temp = (Book) newArr.get(i);
-                        newArr.set(newArr.get(j), i);
+                        newArr.set((Book) newArr.get(j), i);
                         newArr.set(temp, j);
                     }
                 }
