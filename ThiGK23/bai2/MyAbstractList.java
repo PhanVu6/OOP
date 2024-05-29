@@ -9,9 +9,9 @@ public abstract class MyAbstractList implements MyList {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size(); i++) {
-            sb.append(String.format("[%s] \n", get(i + 1).toString()));
+            sb.append("[").append(get(i)).append("] \n");
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 
 }
