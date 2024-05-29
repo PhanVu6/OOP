@@ -10,12 +10,8 @@ public abstract class MyAbstractList implements MyList {
     public String toString() {
         StringBuilder strArray = new StringBuilder();
         for (int i = 0; i < size(); i++) {
-            if (i == size() && i != 0) {
-                strArray.append("[").append(get(i)).append("]");
-                break;
-            }
             strArray.append("[").append(get(i)).append("] ");
         }
-        return strArray.toString();
+        return strArray.toString().trim();
     }
 }
