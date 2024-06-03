@@ -6,15 +6,15 @@ public class SelectionSort implements ISort {
         int countSwap = 0;
         int n = data.length;
         for (int i = 0; i < n - 1; i++) {
-            int max_indx = i;
+            int min_indx = i;
             for (int j = i + 1; j < n; j++) {
-                if (data[j] < data[max_indx]) {
-                    max_indx = j;
+                if (data[j] < data[min_indx]) {
+                    min_indx = j;
                 }
 
-                if (max_indx != i) {
-                    int temp = data[max_indx];
-                    data[max_indx] = data[i];
+                if (min_indx != i) {
+                    int temp = data[min_indx];
+                    data[min_indx] = data[i];
                     data[i] = temp;
                     countSwap++;
                 }
