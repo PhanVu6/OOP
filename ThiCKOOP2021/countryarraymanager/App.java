@@ -21,6 +21,8 @@ public class App {
         System.out.println();
         testSortIncreasingByPopulation();
         System.out.println();
+        testSortDecreasingByPopulation();
+        System.out.println();
         testSortDecreasingByArea();
         System.out.println();
         testSortIncreasingByArea();
@@ -29,17 +31,14 @@ public class App {
         System.out.println();
         testSortIncreasingByGdp();
         System.out.println();
-        testSortDecreasingByPopulation();
-        System.out.println();
-        testSortIncreasingByPopulation();
-        System.out.println();
+
         testFilterHighestGdpCountries();
+        System.out.println();
+        testFilterLowestGdpCountries();
         System.out.println();
         testFilterLargestAreaCountries();
         System.out.println();
         testFilterLeastPopulousCountries();
-        System.out.println();
-        testFilterLowestGdpCountries();
         System.out.println();
         testFilterContinent();
     }
