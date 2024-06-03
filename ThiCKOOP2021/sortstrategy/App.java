@@ -16,78 +16,67 @@ public class App {
 
         // BubbleSort
         System.out.println("Using Bubble Sort Algorithm:");
-
+        StringBuilder stringArray = new StringBuilder();
         int[] data = new int[(int) ((Math.random() * 10))];
         for (int i = 0; i < data.length; i++) {
             data[i] = (int) (Math.random() * 10);
+            stringArray.append(data[i] + " ");
         }
-
-        System.out.print("Before sorting:");
-        for (int i = 0; i < data.length; i++) {
-            System.out.print(data[i] + " ");
-        }
-        System.out.println();
-
+        System.out.println("Before sorting: [" + stringArray.toString().trim() + "]");
+        stringArray.delete(0, stringArray.length());
         SortStrategy sortStrategy = SortStrategy.getInstance();
         BubbleSort bubbleSort = new BubbleSort();
         sortStrategy.setSortee(bubbleSort);
         int countSwap = sortStrategy.sort(data);
-
-        System.out.print("After sorting:");
         for (int i = 0; i < data.length; i++) {
-            System.out.print(data[i] + " ");
+            stringArray.append(data[i] + " ");
         }
+        System.out.println("After sorting: [" + stringArray.toString().trim() + "]");
+        stringArray.delete(0, stringArray.length());
+        System.out.println("Number of swap: " + countSwap);
         System.out.println();
-        System.out.println("Number of swap:" + countSwap);
 
         // SelectionSort
         System.out.println("Using Selection Sort Algorithm:");
         int[] data1 = new int[(int) (Math.random() * 10)];
         for (int i = 0; i < data1.length; i++) {
             data1[i] = (int) (Math.random() * 10);
+            stringArray.append(data1[i] + " ");
         }
-
-        System.out.print("Before sorting:");
-        for (int i = 0; i < data1.length; i++) {
-            System.out.print(data1[i] + " ");
-        }
-        System.out.println();
-
+        System.out.println("Before sorting: [" + stringArray.toString().trim() + "]");
+        stringArray.delete(0, stringArray.length());
         SortStrategy sortStrategy1 = SortStrategy.getInstance();
         SelectionSort selectionSort = new SelectionSort();
         sortStrategy1.setSortee(selectionSort);
         int countSwap1 = sortStrategy1.sort(data1);
 
-        System.out.print("After sorting:");
         for (int i = 0; i < data1.length; i++) {
-            System.out.print(data1[i] + " ");
+            stringArray.append(data1[i] + " ");
         }
+        System.out.println("After sorting: [" + stringArray.toString().trim() + "]");
+        stringArray.delete(0, stringArray.length());
+        System.out.println("Number of swap: " + countSwap1);
         System.out.println();
-        System.out.println("Number of swap:" + countSwap1);
 
         // InsertionSort
         System.out.println("Using Insertion Sort Algorithm:");
         int[] data2 = new int[(int) (Math.random() * 10)];
         for (int i = 0; i < data2.length; i++) {
             data2[i] = (int) (Math.random() * 10);
+            stringArray.append(data2[i] + " ");
         }
-
-        System.out.print("Before sorting:");
-        for (int i = 0; i < data2.length; i++) {
-            System.out.print(data2[i] + " ");
-        }
-        System.out.println();
-
+        System.out.println("Before sorting: [" + stringArray.toString().trim() + "]");
+        stringArray.delete(0, stringArray.length());
         SortStrategy sortStrategy2 = SortStrategy.getInstance();
         InsertionSort insertionSort = new InsertionSort();
         sortStrategy2.setSortee(insertionSort);
         int countSwap2 = sortStrategy2.sort(data2);
 
-        System.out.print("After sorting:");
         for (int i = 0; i < data2.length; i++) {
-            System.out.print(data2[i] + " ");
+            stringArray.append(data2[i] + " ");
         }
-        System.out.println();
-        System.out.println("Number of swap:" + countSwap2);
+        System.out.println("After sorting: [" + stringArray.toString().trim() + "]");
+        stringArray.delete(0, stringArray.length());
+        System.out.println("Number of swap: " + countSwap2);
     }
 }
