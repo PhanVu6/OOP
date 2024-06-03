@@ -49,7 +49,6 @@ public class App {
         SelectionSort selectionSort = new SelectionSort();
         sortStrategy1.setSortee(selectionSort);
         int countSwap1 = sortStrategy1.sort(data1);
-
         for (int i = 0; i < data1.length; i++) {
             stringArray.append(data1[i] + " ");
         }
@@ -71,7 +70,6 @@ public class App {
         InsertionSort insertionSort = new InsertionSort();
         sortStrategy2.setSortee(insertionSort);
         int countSwap2 = sortStrategy2.sort(data2);
-
         for (int i = 0; i < data2.length; i++) {
             stringArray.append(data2[i] + " ");
         }
