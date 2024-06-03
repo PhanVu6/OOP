@@ -8,7 +8,7 @@ public class SelectionSort implements ISort {
         for (int i = 0; i < n - 1; i++) {
             int max_indx = i;
             for (int j = i + 1; j < n; j++) {
-                if (data[j] > data[max_indx]) {
+                if (data[j] < data[max_indx]) {
                     max_indx = j;
                 }
 
