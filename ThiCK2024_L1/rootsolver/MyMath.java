@@ -44,7 +44,7 @@ public class MyMath {
         return expSum;
     }
 
-    public static double ln(double x) {
+    public double ln(double x) {
         double term, lnSum;
         int i = 2;
         lnSum = x;
@@ -53,7 +53,7 @@ public class MyMath {
             term *= -x;
             lnSum += term / i;
             i++;
-        } while (i <= 200);
+        } while (Math.abs(term) >= 1e-15);
         return lnSum;
     }
 }
