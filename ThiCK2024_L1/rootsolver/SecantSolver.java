@@ -26,12 +26,17 @@ public class SecantSolver implements RootSolver {
     @Override
     public double solve(AbstractFunction function, double lower, double upper) {
         double x = 0;
+        double prevVal;
         for (int i = 0; i < maxIterations; i++) {
+            prevVal = x;
             x = upper - function.evaluate(upper) * (upper - lower)
                     / (function.evaluate(upper) - function.evaluate(lower));
 
             lower = upper;
             upper = x;
+            if (Math.abs(prevVal - x) < tolerance) {
+                break;
+            }
         }
 
         return x;

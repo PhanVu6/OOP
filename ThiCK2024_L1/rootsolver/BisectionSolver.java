@@ -32,9 +32,11 @@ public class BisectionSolver implements RootSolver {
             return Double.NEGATIVE_INFINITY;
         }
 
+        double previousVal = x;
         while (index <= maxIterations) {
+            previousVal = x;
             x = (lower + upper) / 2;
-            if (function.evaluate(x) == 0 || (upper - lower) / 2 < tolerance) {
+            if (function.evaluate(x) == 0 || Math.abs(previousVal - x) < tolerance) {
                 return x;
             }
             index++;
