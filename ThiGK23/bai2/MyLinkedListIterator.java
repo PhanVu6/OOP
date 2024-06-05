@@ -17,9 +17,6 @@ public class MyLinkedListIterator implements MyIterator {
     @Override
     public Object next() {
         MyLinkedListNode indexCurrent = currentPosition;
-        if (!hasNext()) {
-            throw new NoSuchElementException();
-        }
         currentPosition = currentPosition.getNext();
         return indexCurrent.getPayload();
     }
