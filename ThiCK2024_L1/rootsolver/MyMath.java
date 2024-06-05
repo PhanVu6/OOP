@@ -32,30 +32,28 @@ public class MyMath {
     }
 
     public double exp(double x) {
-        double accuracy = 0.0001, term, expSum, expPre;
+        double term, expSum;
         int i = 1;
         expSum = 1;
         term = 1;
-        expPre = expSum;
         do {
             term *= x / i;
             expSum += term;
             i++;
-        } while (accuracy <= expPre - expSum);
+        } while (Math.abs(term) >= 1e-15);
         return expSum;
     }
 
-    public double ln(double x) {
-        double accuracy = 0.0001, term, lnSum, lnPre;
+    public static double ln(double x) {
+        double term, lnSum;
         int i = 2;
         lnSum = x;
-        term = 1;
-        lnPre = lnSum;
+        term = x;
         do {
             term *= -x;
             lnSum += term / i;
             i++;
-        } while (accuracy <= lnPre - lnSum);
+        } while (i <= 200);
         return lnSum;
     }
 }
