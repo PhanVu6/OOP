@@ -30,6 +30,10 @@ public class SecantSolver implements RootSolver {
             x = upper - function.evaluate(upper) * (upper - lower)
                     / (function.evaluate(upper) - function.evaluate(lower));
 
+            if (Math.abs(upper - lower) < tolerance) {
+                break;
+            }
+
             lower = upper;
             upper = x;
         }
