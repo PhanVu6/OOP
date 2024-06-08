@@ -16,6 +16,9 @@ public class RootFindingTestDrive {
 		 * lên classroom.
 		 */
 		testRootSolver();
+		System.out.println(MyMath.ln(2));
+		System.out.println(Math.log(2));
+
 	}
 
 	public static void testRootSolver() {

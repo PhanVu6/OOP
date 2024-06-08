@@ -1,5 +1,7 @@
 package rootsolver;
 
+import javax.management.RuntimeErrorException;
+
 public class MyMath {
     public static double sin(double x) {
         double denominator, sinX;
@@ -45,15 +47,20 @@ public class MyMath {
     }
 
     public static double ln(double x) {
-        double term, lnSum;
+        if (x < 1) {
+            throw new RuntimeErrorException(null, "x must be greater or equal than 1!");
+        }
+        x -= 1;
+        double term = x;
+        double lnSum = x;
+        double previousVal = lnSum;
         int i = 2;
-        lnSum = x;
-        term = x;
         do {
+            previousVal = lnSum;
             term *= -x;
             lnSum += term / i;
             i++;
-        } while (i <= 200);
+        } while (i <= 1000000);
         return lnSum;
     }
 }
