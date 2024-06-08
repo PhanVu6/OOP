@@ -4,18 +4,18 @@ import java.util.Random;
 
 public class NumberSystemTestDrive {
     public static void main(String[] args) {
-        ANumber number1 = getRandomNumber();
-        INumberSystemConverter binaryConverter = new BinaryConverter(number1);
-        INumberSystemConverter octalConverter = new OctalConverter(number1);
-        INumberSystemConverter hexConverter = new HexadecimalConverter(number1);
+        ANumber number = getRandomNumber();
+        INumberSystemConverter binaryConverter = new BinaryConverter(number);
+        INumberSystemConverter octalConverter = new OctalConverter(number);
+        INumberSystemConverter hexConverter = new HexadecimalConverter(number);
 
         NumberSystemController controller = new NumberSystemController();
         controller.registerConverter(binaryConverter);
         controller.registerConverter(octalConverter);
         controller.registerConverter(hexConverter);
 
-        controller.setNumberPresentation(number1.getNumberPresentation());
-        controller.setRadix(number1.getRadix());
+        controller.setNumberPresentation(number.getNumberPresentation());
+        controller.setRadix(number.getRadix());
 
         System.out.println("Original number: " + controller.getNumberPresentation());
         System.out.println("Radix: " + controller.getRadix());
@@ -28,9 +28,9 @@ public class NumberSystemTestDrive {
         hexConverter.display();
         System.out.println("----------------");
 
-        number1 = getRandomNumber();
-        controller.setNumberPresentation(number1.getNumberPresentation());
-        controller.setRadix(number1.getRadix());
+        number = getRandomNumber();
+        controller.setNumberPresentation(number.getNumberPresentation());
+        controller.setRadix(number.getRadix());
 
         System.out.println("Original number: " + controller.getNumberPresentation());
         System.out.println("Radix: " + controller.getRadix());
@@ -43,9 +43,9 @@ public class NumberSystemTestDrive {
         hexConverter.display();
         System.out.println("----------------");
 
-        number1 = getRandomNumber();
-        controller.setNumberPresentation(number1.getNumberPresentation());
-        controller.setRadix(number1.getRadix());
+        number = getRandomNumber();
+        controller.setNumberPresentation(number.getNumberPresentation());
+        controller.setRadix(number.getRadix());
 
         System.out.println("Original number: " + controller.getNumberPresentation());
         System.out.println("Radix: " + controller.getRadix());
