@@ -2,21 +2,34 @@ package hus.oop.mynumbersystem;
 
 public class BinaryConverter extends AbstractNumberSystemConverter {
     public BinaryConverter(ANumber aNumber) {
-        /* TODO */
+        super(aNumber);
     }
 
     /**
      * Chuyển đổi một số được biểu diễn trong hệ cơ số 10
      * sang số được biểu diễn trong hệ cơ số 2.
+     * 
      * @param decimal
      * @return xâu ký tự biểu diễn số trong hệ cơ số 2.
      *
-     * Yêu cầu: sử dụng thuật toán Euclid để chuyển đổi,
-     * không sử dụng thư viện chuyển đổi số có sẵn của Java.
+     *         Yêu cầu: sử dụng thuật toán Euclid để chuyển đổi,
+     *         không sử dụng thư viện chuyển đổi số có sẵn của Java.
      */
     @Override
     public String decimalTo(String decimal) {
-        /* TODO */
+        if (decimal.equals("0")) {
+            return "0";
+        }
+
+        int valueOfDecimal = Integer.parseInt(decimal);
+        StringBuilder binary = new StringBuilder();
+        while (valueOfDecimal != 0) {
+            int remainder = valueOfDecimal % 2;
+            binary.append(remainder);
+            valueOfDecimal /= 2;
+        }
+
+        return binary.reverse().toString();
     }
 
     /**
@@ -25,7 +38,8 @@ public class BinaryConverter extends AbstractNumberSystemConverter {
      */
     @Override
     public void update(ANumber number) {
-        /* TODO */
+        this.convertedNumber = decimalTo(this.convertedNumber);
+        display();
     }
 
     /**
@@ -33,6 +47,6 @@ public class BinaryConverter extends AbstractNumberSystemConverter {
      */
     @Override
     public void display() {
-        /* TODO */
+        System.out.println(this.convertedNumber + "(2)");
     }
 }
