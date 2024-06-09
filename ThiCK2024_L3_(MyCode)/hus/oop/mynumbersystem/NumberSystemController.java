@@ -1,29 +1,34 @@
 package hus.oop.mynumbersystem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NumberSystemController {
     private ANumber originalNumber;
-    private List<NumberSystemConverter> converters;  // Danh sách các converter theo observer pattern
+    private List<NumberSystemConverter> converters; // Danh sách các converter theo observer pattern
 
     public NumberSystemController() {
-        /* TODO */
+        this.converters = new ArrayList<NumberSystemConverter>();
     }
 
     /**
      * Thêm vào converter để quan sát số ban đầu.
+     * 
      * @param converter
      */
     public void registerConverter(NumberSystemConverter converter) {
-        /* TODO */
+        this.onStateChanged();
+        this.converters.add(converter);
     }
 
     /**
      * Hủy quan sát số ban đầu của converter.
+     * 
      * @param converter
      */
     public void unregisterConverter(NumberSystemConverter converter) {
-        /* TODO */
+        this.onStateChanged();
+        this.converters.remove(converter);
     }
 
     /**
@@ -31,23 +36,27 @@ public class NumberSystemController {
      * các converter đang ký quan sát để cập nhật lại trạng thái theo dữ liệu mới.
      */
     public void notifyConverters() {
-        /* TODO */
+        for (NumberSystemConverter numberSystemConverter : converters) {
+            numberSystemConverter.update(originalNumber);
+        }
     }
 
     public String getNumberPresentation() {
-        /* TODO */
+        return this.originalNumber.getNumberPresentation();
     }
 
     public void setNumberPresentation(String numberPresentation) {
-        /* TODO */
+        this.onStateChanged();
+        this.originalNumber.setNumberPresentation(numberPresentation);
     }
 
     public int getRadix() {
-        /* TODO */
+        return this.originalNumber.getRadix();
     }
 
     public void setRadix(int radix) {
-        /* TODO */
+        this.onStateChanged();
+        this.originalNumber.setRadix(radix);
     }
 
     /**
@@ -56,6 +65,6 @@ public class NumberSystemController {
      * cập nhật lại trạng thái.
      */
     private void onStateChanged() {
-        /* TODO */
+        this.notifyConverters();
     }
 }
