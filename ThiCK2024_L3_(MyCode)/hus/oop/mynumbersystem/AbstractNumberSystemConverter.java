@@ -41,19 +41,32 @@ public abstract class AbstractNumberSystemConverter implements NumberSystemConve
             radix = 16;
         }
 
-        String strNumber = this.convertedNumber;
+        this.convertedNumber = this.convertedNumber.toUpperCase();
         int lengthConvertedNumber = convertedNumber.length();
         int convertCharToValue = 0;
         int result = 0;
 
         for (int i = 0; i < lengthConvertedNumber; i++) {
-            convertCharToValue = Character.getNumericValue(strNumber.charAt(i));
+            convertCharToValue = Character.getNumericValue(this.convertedNumber.charAt(i));
+            if (radix == 2 && convertCharToValue >= 0 && convertCharToValue < radix) {
+                result = convertCharToValue + result * radix;
+            }
+
             if (radix == 8 && convertCharToValue >= 0 && convertCharToValue < radix) {
-                result = convertCharToValue + result * 8;
+                result = convertCharToValue + result * radix;
+            }
+
+            if (radix == 16) {
+                int valueDigthAtASCII = (int) this.convertedNumber.charAt(i);
+                if (convertCharToValue >= 0 && convertCharToValue < radix) {
+                    result = convertCharToValue + result * radix;
+                } else if (valueDigthAtASCII >= 97 && valueDigthAtASCII <= 102) {
+                    result = (valueDigthAtASCII - 97 + 10) + result * radix;
+                }
             }
         }
 
-        strNumber = "" + result;
-        return strNumber;
+        this.convertedNumber = "" + result;
+        return this.convertedNumber;
     }
 }
